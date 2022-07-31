@@ -1,0 +1,61 @@
+.dots{
+    color: white;
+    margin: 14px;
+}
+
+.paperposition{
+    width: fit-content;
+    position: relative;
+    right: 50px;
+}
+
+.paperpositionsearch{
+    width: fit-content;
+    position: relative;
+    right: 50px;
+    z-index: 100;
+}
+
+.paperpositioncall{
+    width: fit-content;
+    position: relative;
+    right: 50px;
+    background-color: transparent !important;
+}
+
+/* .optionadd{
+    z-index: 1;
+} */
+
+.optionadd{
+    max-width: 10px;
+    max-height: fit-content;
+    background-color: white;
+    z-index: 1000;
+    position:sticky ;
+    
+}
+
+
+
+.searchcontact{
+    margin: 20px;
+    border-radius: 10px;
+    width: 190px;
+    max-height: 40px;
+    padding: 0px 7px 0px 7px;
+    border: 1px lightgrey;
+    outline-width: 0;
+    resize: none;
+    font-size: medium;
+    font-weight: 300;
+}
+
+
+
+.notcontact{
+margin: 0px 0px 0px 70px;
+font-size: medium;
+font-weight: bolder;
+
+}

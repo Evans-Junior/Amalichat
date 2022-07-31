@@ -1,0 +1,83 @@
+.sidebarchathome{
+    display: flex;
+    padding: 10px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(234,233,255,1) 0%, rgba(252,167,213,1) 35%, rgba(194,245,255,1) 100%);
+    color: rgb(29, 11, 11);
+    border-bottom: 1px solid #FFF0F5;
+    border-radius: 10px;
+}
+.sidebarchathome:hover{
+    background: #423d3f;
+    color: white;
+}
+
+.sidebar_info{
+    display: flex;
+    margin-left: 15px;
+    justify-content:space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.first{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.name{
+
+    font-size: 16px;
+    margin-bottom: 8px;
+    margin: 0px;
+    }
+
+.inside{
+    margin-left: 22px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.inside > p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    overflow: hidden;
+    max-height: 21px;
+    max-width: 200.02px;
+    overflow: hidden;
+    font-size: small;
+}
+.first_message{
+    font-size: light;
+    display: flex;
+    margin: 0px;
+    overflow: hidden;
+    max-height: 21px;
+    max-width: 200.02px;
+    overflow: hidden;
+}
+
+.second_message{
+    display: flex;
+    margin: 0px;
+    overflow: hidden;
+    max-height: 21px;
+    max-width: 200.02px;
+    overflow: hidden;
+    font-weight: bold;
+    font-size: small;
+}
+
+.time{
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-weight: bold;
+    margin: 0px 5px 0px 0px;
+  }
