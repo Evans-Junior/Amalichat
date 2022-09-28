@@ -15,9 +15,9 @@ autoConnect:false,
  }
 )
 
-// socket.connect()
 
-export default function Chat({userName}) {
+
+ function Chat({userName}) {
   console.log('Refreshing',localStorage.getItem('sessionId'))
   console.log('This is the user from Login',userName)
   const sessionId=localStorage.getItem('sessionId')
@@ -25,7 +25,7 @@ export default function Chat({userName}) {
   const [findMessage,setFindMessage]=useState('')
   // const socket=useRef()
   const [currentUser, setCurrentUser] = useState(userName);
-// const [sessionId,setSessionId]=useState(null)
+const [clearData,setClearData]=useState('')
  
 
 //  socket.auth={username:user}
@@ -80,16 +80,21 @@ useEffect(()=>{
  
 // }, [currentUser]);
 
+// const accessChild = ()=>{
+// refs.child.clearChat()
+// }
 
 
   return (
     <div className='chathome'>
         <div className='chatcontainer'>
 
-          <Sidebar socket={socket} getMessages={message} userName={currentUser}/>
-          <Chats clickedMessage={findMessage} socket={socket} userName={currentUser}/>
+          <Sidebar socket={socket} getMessages={message} userName={currentUser} clearData={clearData}/>
+          <Chats clickedMessage={findMessage} socket={socket} userName={currentUser} setClearData={setClearData}/>
  
         </div>
     </div>
   )
 }
+
+export default Chat

@@ -293,12 +293,64 @@ z-index: 100;
 }
 
 .chat_body{
-
     overflow:auto;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: auto;
+    width: 200px;
+    
 }
 
+.chat_body::-webkit-scrollbar {
+    width: 0.2rem;
+    
+}
+
+.chat_body::-webkit-scrollbar-thumb {
+    background-color: #ffffff39;
+    width: 0.1rem;
+    border-radius: 1rem;
+}
+
+.messagee {
+    display: flex;
+    align-items: center;
+    padding: 10px 200px 30px 200px;
+      }
+
+      .messagee > content {
+        background-color: #55ef43;
+            padding: 0px 80px 0px 130px;
+        max-width: 40%;
+        overflow-wrap: break-word;
+        padding: 1rem;
+        font-size: 1.1rem;
+        border-radius: 1rem;
+        color: #080000;
+        @media screen and (min-width: 720px) and (max-width: 1080px) {
+          max-width: 70%;
+        }
+    }
+
+    .sended {
+        justify-content: flex-end;
+      }
+      .sended > content {
+        background-color: #4f04ff21;
+      }
+
+      .recieved {
+        justify-content: flex-start;
+      }
+        .recieved > content {
+          background-color: #9900ff20;
+        }
+        
+
 .mesage{
-    display: none;
+    /* display: none; */
 /* background-color: #e98181; */
 
 }

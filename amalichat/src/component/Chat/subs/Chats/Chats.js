@@ -14,20 +14,20 @@ import 'react-toastify/dist/ReactToastify.css';
 // import ScrollToBottom from "react-scroll-to-bottom";
 // import { format } from "timeago.js";
 
- export default function Chats({socket,clickedMessage,userName}) {
+ export default function Chats({socket,clickedMessage,userName,setClearData}) {
 const [room, setRoom] = useState("");
 const [active,setAcive]=useState(true)
 const [message,setMessage]=useState([])
-const [messageReceived,setMessageReceived]=useState([''])
+const [messageReceived,setMessageReceived]=useState([])
 const scrollRef = useRef();
 const [time,setTime]=useState('')
-const [fromName,setFromName]=useState(clickedMessage.username)
-const [fromTime,setFromTime]=useState([])
+const [fromName,setFromName]=useState('')
+const [sent,setSent]=useState([])
 const [fromMessage,setFromMessage]=useState([])
 const [fromData,setFromData]=useState([])
-const [nameCard,setNameCard] = useState("close");
+const [received,setReceived] = useState([]);
 const [to,setTo] = useState(true)
-const [nextStage,setNextStage]=useState('')
+const [clickedPerson,setClickedPerson]=useState()
 const [dataList,setDataList]=useState([])
 const [array, setArray] = useState([])
 const [arrivalMessage, setArrivalMessage] = useState(null);
@@ -89,18 +89,25 @@ scrollRef.current?.scrollIntoView({behaviour:"smooth"});
 
 await socket.emit("privateChat",{receiver:clickedMessage,message,time,chatId})
 
-          setMessageReceived([...messageReceived,message])
+          setMessageReceived(message)
           setMessage("");
-          return true;
+        const msgs =[...messageReceived];
+        msgs.push({fromSelf:true, message:message})
+        setMessageReceived(msgs)
+        return true;
         }
+      
     };
 
+    useEffect(()=>{
 
+    },[sendMessage])
 
    socket.on('error',(err)=>console.log('Error from Chats:',err))
    useEffect(()=>{
 socket.on('privateMessage',(receivedMessage)=>{
-setFromData(receivedMessage)
+setFromData(receivedMessage.from.username)
+setArrivalMessage({fromSelf: false, message: receivedMessage.message})
 setFromMessage(receivedMessage.from.userId)
   // setMessageReceived((preMessages)=>[...preMessages,receivedMessage.message])
 // console.log('I message data',messageData)
@@ -112,16 +119,46 @@ console.log('I received userid',fromMessage)
 console.log('Clicked person in Chat:',clickedMessage)
 
 
+
 useEffect(() => {
   // const messages =[...messageReceived]
   // messages.push(fromData.message)
-  fromData && setMessageReceived(pre=>[...pre,fromData.message]);
-}, [fromData]);
+  arrivalMessage && setMessageReceived(pre=>[...pre,arrivalMessage]);
+  localStorage.setItem('message',messageReceived.message)
+}, [arrivalMessage]);
 
-// useEffect(() => {
-//   scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-// }, [array]);
+useEffect(() => {
+  scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+}, [messageReceived]);
 
+// let data = [
+//   {
+//     "userId": clickedMessage.userId,
+//     "sent": message,
+//     "Received": fromData.message,
+//     "Time": new Date(Date.now()).getHours() +
+//     ":" +
+//     new Date(Date.now()).getMinutes()
+//   },
+//   {
+//     "userId": "purple",
+//     "sent": "minivan",
+//     "Received": new Date('2017-01-03'),
+//     "Time": new Date(Date.now()).getHours() +
+//     ":" +
+//     new Date(Date.now()).getMinutes()
+//   }, 
+// ]
+
+// let person = {
+//   "userId": clickedMessage.userId,
+//     "sent": message,
+//     "Received": fromData.message,
+//     "Time": new Date(Date.now()).getHours() +
+//     ":" +
+//     new Date(Date.now()).getMinutes()
+//  }
+//  data.push(person);
 
     useEffect(()=>{
         socket.on('receive_message',(data)=>{
@@ -131,8 +168,27 @@ useEffect(() => {
     });
 
 
+useEffect(()=>{
+  setFromName(clickedMessage.username)
+  const userClicked= JSON.stringify(fromName)
+  localStorage.setItem('clickedUser',userClicked)
+if(fromName!==localStorage.getItem('clickedUser')){
+setMessageReceived([])
+}
 
-      
+},[clickedMessage])
+   console.log('Whose name:',fromData)
+   socket.on('old_message',message=>console.log('old message',message))
+
+  // const clearChat=()=>{
+  //   messageReceived=[]
+  // }
+// useEffect(()=>{
+
+//     setClearData(setMessageReceived([]))
+
+//  },[setClearData])
+console.log('messages:',messageReceived)
 
   return (
     <div className='chathome'>
@@ -149,7 +205,7 @@ useEffect(() => {
             <div className='seenchat'>
                 <div className='scroll'>
                 <div className="chat__body">
-                          {clickedMessage.userId===fromMessage  || messageReceived===[]?
+                          {/* {clickedMessage.userId===fromMessage?
                        messageReceived.map((i)=>{
                         return(
                           <p key={uniqid()} ref={scrollRef} className="chat__message chat__reciever">
@@ -159,8 +215,23 @@ useEffect(() => {
                                  </span>
                              </p>
                         )}):''
-                    }
-                        
+                    } */}
+                       {messageReceived.map((message) => {
+          return (
+            <div ref={scrollRef} key={uniqid()}>
+              <div
+                className={`messagee ${
+                  message.fromSelf ? "sended" : "recieved"
+                }`}
+              >
+                <div className="content">
+                  {message.message}
+                  {/* <p>{messageReceived.map((message)=>{return (message.message)})}</p> */}
+                </div>
+              </div>
+            </div>
+          );
+        })}  
                             
 
                     

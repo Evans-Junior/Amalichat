@@ -5,8 +5,8 @@ import Sidebarchat from './Sidebarchat/Sidebarchat';
 import Groupchat from './Sidebarchat/Groupchat';
 import Creategroup from '../options/Creategroup/Creategroup';
 import { BiBot,BiDotsHorizontalRounded } from "react-icons/bi";
-
-export default function Sidebar({socket,userName,getMessages}) {
+import PropTypes from 'prop-types';
+export default function Sidebar({socket,userName,getMessages,clearData}) {
 
 const [users,setUsers]=useState([])
 const [currentSelected, setCurrentSelected] = useState([]);
@@ -95,6 +95,7 @@ const getId = async (index,receiver)=>{
       sender: userinfo,
       receiver
     })
+await clearData
  }
 
  socket.on('privateMessage',(receivedMessage)=>{
@@ -128,7 +129,7 @@ const getId = async (index,receiver)=>{
           return (
   
             <div key={index} onClick={()=>getId(index,contacts)}>
-            <Sidebarchat username={contacts.username} active={contacts.connected} currentSelected={currentSelected} newMessage={newMessage} myName={userName}/>
+            <Sidebarchat  username={contacts.username} active={contacts.connected} currentSelected={currentSelected} newMessage={newMessage} socket={socket} myName={userName}/>
           </div>
           )})
           }
